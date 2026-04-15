@@ -43,3 +43,10 @@ def api_dados(request):
     )
 
     return JsonResponse(dados[::-1], safe=False)
+
+from django.contrib.auth.models import User
+
+def criar_admin(request):
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@email.com', '123456')
+    return JsonResponse({'status': 'ok'})
